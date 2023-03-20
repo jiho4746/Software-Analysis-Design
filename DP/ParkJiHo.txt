@@ -1,0 +1,8 @@
+#written by FileProperties
+#Tue Mar 22 16:29:00 KST 2022
+bornYear=2000
+Year=2019
+year=1999
+StudentId=20200769
+Name=ParkJiHo
+Location=Seoul

@@ -1,0 +1,2 @@
+csh@duksung.ac.kr=csh
+a1@yougjin.com=a1

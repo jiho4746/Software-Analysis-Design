@@ -1,0 +1,64 @@
+import command.*;
+import drawer.*;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class Main extends JFrame implements ActionListener, MouseMotionListener, WindowListener {
+    private MacroCommand history = new MacroCommand();
+    private DrawCanvas canvas = new DrawCanvas(400, 400, history);
+    private JButton clearButton  = new JButton("clear");
+
+    public Main(String title) {
+        super(title);
+// 리스너 등록하기
+        this.addWindowListener(this);
+        canvas.addMouseMotionListener(this);
+        clearButton.addActionListener(this);
+
+        Box buttonBox = new Box(BoxLayout.X_AXIS);
+        buttonBox.add(clearButton);
+        Box mainBox = new Box(BoxLayout.Y_AXIS);
+        mainBox.add(buttonBox);
+        mainBox.add(canvas);
+        getContentPane().add(mainBox);
+
+        pack();
+        setVisible(true);
+    }
+
+    // ActionListener
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == clearButton) {
+            history.clear();
+            canvas.repaint();
+        }
+    }
+
+    // MouseMotionListener
+    public void mouseMoved(MouseEvent e) {
+    }
+    public void mouseDragged(MouseEvent e) {
+        Command cmd = new DrawCommand(canvas, e.getPoint());
+        history.append(cmd);
+        cmd.execute();
+    }
+
+    // WindowListener
+    public void windowClosing(WindowEvent e) {
+        System.exit(0);
+    }
+	// WindowListener 인터페이스에 선언되어 있는 나머지 메소드들
+	// 구현할 필요가 없으므로, 빈 문장의 메소드로 구현되어 있다.
+    public void windowActivated(WindowEvent e) {}
+    public void windowClosed(WindowEvent e) {}
+    public void windowDeactivated(WindowEvent e) {}
+    public void windowDeiconified(WindowEvent e) {}
+    public void windowIconified(WindowEvent e) {}
+    public void windowOpened(WindowEvent e) {}
+
+    public static void main(String[] args) {
+        new Main("Command Pattern Sample");
+    }
+}

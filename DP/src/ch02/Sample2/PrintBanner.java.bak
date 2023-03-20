@@ -1,0 +1,14 @@
+public class PrintBanner extends Print {
+    private Banner banner;
+    public PrintBanner(String string) {
+        this.banner = new Banner(string);
+    }
+    public void printWeak() {
+		// Banner 객체인 banner의 showWithParen( )을 호출한다.
+		// printWeak( )는 자신이 일을 처리하지 않고 banner에게 위임한다.
+        banner.showWithParen();
+    }
+    public void printStrong() {
+        banner.showWithAster();
+    }
+}
